@@ -1,0 +1,74 @@
+# Default configuration for Bayesian Neural Networks
+
+# Model configuration
+model:
+  method: "mc_dropout"  # Options: mc_dropout, variational, deep_ensemble
+  hidden_dims: [64, 32]
+  dropout_rate: 0.5
+  prior_std: 1.0
+  num_samples: 100
+  num_models: 5  # For deep ensemble
+
+# Training configuration
+training:
+  num_epochs: 100
+  learning_rate: 0.001
+  batch_size: 32
+  kl_weight: 0.01  # For variational methods
+  weight_decay: 0.0
+  patience: 10  # Early stopping patience
+
+# Data configuration
+data:
+  dataset: "iris"  # Options: iris, wine, breast_cancer, synthetic
+  scaler_type: "standard"  # Options: standard, minmax
+  test_size: 0.3
+  val_size: 0.2
+  random_state: 42
+  
+  # Synthetic dataset parameters
+  synthetic:
+    n_samples: 1000
+    n_features: 10
+    n_classes: 3
+    n_informative: 5
+    n_redundant: 0
+    noise: 0.1
+    class_sep: 1.0
+
+# Evaluation configuration
+evaluation:
+  num_samples: 100
+  num_bins: 10
+  save_predictions: true
+  save_uncertainties: true
+  compute_calibration: true
+  compute_ranking: true
+
+# Visualization configuration
+visualization:
+  figsize: [12, 8]
+  dpi: 300
+  style: "seaborn-v0_8"
+  save_plots: true
+  plot_format: "png"
+  
+# Device configuration
+device:
+  auto_detect: true
+  preferred: "cuda"  # Options: cuda, mps, cpu
+  fallback: "cpu"
+
+# Logging configuration
+logging:
+  level: "INFO"
+  log_to_file: true
+  log_file: "logs/training.log"
+  log_metrics: true
+  log_uncertainty: true
+
+# Reproducibility
+reproducibility:
+  seed: 42
+  deterministic: true
+  benchmark: false
